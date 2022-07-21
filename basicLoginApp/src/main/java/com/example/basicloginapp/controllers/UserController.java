@@ -3,18 +3,19 @@ package com.example.basicloginapp.controllers;
 import com.example.basicloginapp.entity.User;
 import com.example.basicloginapp.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
-@RequestMapping
+@Controller
 public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/registration")
+
+    @RequestMapping(value = "/registration", method = RequestMethod.GET)
     public String registration(Model model){
         model.addAttribute("userForm", new User());
 
@@ -22,8 +23,11 @@ public class UserController {
     }
 
     @PostMapping("/registration")
-    public String registration(@ModelAttribute("userForm") User userForm){
-        userService.save(userForm);
+    public String registration(@ModelAttribute("userForm") User user, BindingResult result){
+        if(result.hasErrors()){
+            return "registration";
+        }
+        userService.save(user);
 
         return "redirect:/welcome";
     }

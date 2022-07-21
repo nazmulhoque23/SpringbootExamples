@@ -5,9 +5,11 @@ import com.example.basicloginapp.repositories.RoleRepository;
 import com.example.basicloginapp.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 
+@Service
 public class UserServiceImpl implements UserService{
 
     @Autowired
@@ -27,7 +29,7 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public User findByName(String name) {
+        return userRepository.findByname(name);
     }
 }
