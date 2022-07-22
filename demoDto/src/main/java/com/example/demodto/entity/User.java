@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Data
 @NoArgsConstructor
@@ -31,5 +32,9 @@ public class User {
     @JoinTable(name = "users_role",
                 joinColumns = {@JoinColumn(name = "USER_ID", referencedColumnName="ID")},
             inverseJoinColumns={@JoinColumn(name = "ROLE_ID", referencedColumnName="ID")})
-    private List<Roles> roles;
+    private Set<Roles> roles;
+
+    public String getUsername() {
+        return name;
+    }
 }

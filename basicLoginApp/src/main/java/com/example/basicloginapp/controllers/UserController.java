@@ -7,29 +7,28 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+
 
 @Controller
 public class UserController {
     @Autowired
     private UserService userService;
 
-
-    @RequestMapping(value = "/registration", method = RequestMethod.GET)
+    @GetMapping("/register")
     public String registration(Model model){
         model.addAttribute("userForm", new User());
 
         return "registration";
     }
 
-    @PostMapping("/registration")
+    @PostMapping("/register")
     public String registration(@ModelAttribute("userForm") User user, BindingResult result){
         if(result.hasErrors()){
             return "registration";
         }
         userService.save(user);
 
-        return "redirect:/welcome";
+        return "welcome";
     }
 
     @GetMapping("/login")
