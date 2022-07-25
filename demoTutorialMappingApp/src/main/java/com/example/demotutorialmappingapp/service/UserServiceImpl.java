@@ -21,6 +21,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository){
@@ -40,8 +41,8 @@ public class UserServiceImpl implements UserService{
     }
 
     @Override
-    public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
-        UserEntity user = userRepository.findByEmail(userName);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity user = userRepository.findByEmail(email);
 
         if(user == null){
             throw new UsernameNotFoundException("INVALID USER NAME or EMAIL");
