@@ -34,6 +34,8 @@ public class UserEntity {
                     referencedColumnName = "id"))
     private Collection<Role> roles;
 
+
+
     public UserEntity(String firstName, String lastName, String email, String password, Collection<Role> roles) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -41,4 +43,6 @@ public class UserEntity {
         this.password = password;
         this.roles = roles;
     }
+
+
 }

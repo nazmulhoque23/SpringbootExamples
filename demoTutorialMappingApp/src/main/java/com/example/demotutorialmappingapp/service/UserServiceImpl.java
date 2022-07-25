@@ -9,7 +9,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
-    private BCryptPasswordEncoder passwordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     public UserServiceImpl(UserRepository userRepository){
         super();
@@ -30,11 +30,12 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public UserEntity save(UserRegistrationDto registrationDto){
-        UserEntity user = new UserEntity(registrationDto.getFirstName(),
-                                        registrationDto.getLastName(),
-                                        registrationDto.getEmail(),
-                                        passwordEncoder.encode(registrationDto.getPassword()),
-                                        Arrays.asList(new Role("ROLE_USER")));
+        UserEntity user = new UserEntity();
+        user.setFirstName(registrationDto.getFirstName());
+        user.setLastName(registrationDto.getLastName());
+        user.setEmail(registrationDto.getEmail());
+        user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
+        user.setRoles(Arrays.asList(new Role("ROLE_USER")));
         return userRepository.save(user);
     }
 
