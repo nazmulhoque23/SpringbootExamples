@@ -21,8 +21,12 @@ import java.util.stream.Collectors;
 public class UserServiceImpl implements UserService{
     private UserRepository userRepository;
 
-    @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    public UserServiceImpl(UserRepository userRepository){
+        super();
+        this.userRepository  =userRepository;
+    }
 
     @Override
     public UserEntity save(UserRegistrationDto registrationDto){
