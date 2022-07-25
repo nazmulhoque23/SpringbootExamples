@@ -7,10 +7,11 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
-@AllArgsConstructor
+
 @NoArgsConstructor
 @Getter
 @Setter
@@ -33,4 +34,11 @@ public class UserEntity {
                     referencedColumnName = "id"))
     private Collection<Role> roles;
 
+    public UserEntity(String firstName, String lastName, String email, String password, Collection<Role> roles) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.roles = roles;
+    }
 }
